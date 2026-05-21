@@ -24,3 +24,15 @@ listdata=['python','ai','study','good','ai','python','ai']
 
 result=WordCountFunc(listdata)
 print(result)#{'python':2,'ai':3,'study':1,'good':1}
+
+
+def InforCombine(key,value):#리스트 두개를 합쳐서 dict형식으로 바쿼주는 함수
+    dic={}
+    for k in range(0,len(key)):
+        dic[key[k]]=value[k]
+    return dic
+key_list = ['name','age','address']
+value_list=['Hong',50,'seoul']
+
+result=InforCombine(key_list,value_list)
+print('result :',result)#{'name':'Hong','age':50,'address:'seoul']
