@@ -26,7 +26,7 @@ result=WordCountFunc(listdata)
 print(result)#{'python':2,'ai':3,'study':1,'good':1}
 
 
-def InforCombine(key,value):#리스트 두개를 합쳐서 dict형식으로 바쿼주는 함수
+def InforCombine(key,value):#리스트 두개를 합쳐서 dict형식으로 바꿔주는 함수
     dic={}
     for k in range(0,len(key)):
         dic[key[k]]=value[k]
