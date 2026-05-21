@@ -7,5 +7,5 @@ def ReverseData():
 data=50
 value=70
 print(data,value)# 50,70
-ReverseData()#함수호출
+ReverseData()#함수호출 
 print(data,value)#70,50-->함수호출후
