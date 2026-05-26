@@ -20,3 +20,29 @@ data=MyCallist([5,6,7,9], [8,9,5,10])
 
 data.Sumoflist1() #[13,15,12,17]
 data.Sumoflist2()# [6,7]
+
+class StudentScore():
+    def __init__(self,name,*score):
+        self.name=name
+        self.score=score
+    def scoredisplay(self):
+        self.score=list(self.score)
+        total=0
+        for x in self.score:
+            total+=x
+        print(f'{self.name} , {total} , {total/len(self.score)}')
+
+
+Studentlist=[
+    StudentScore("Hong",80,60,70,90),
+    StudentScore("Kim",90,70,80,85),
+    StudentScore("Park",88,66,77,99),
+    StudentScore("Lee",92,72,82,82),
+]
+
+print('이름', '총점', '평균')
+for student in Studentlist:
+    student.scoredisplay()
+
+
+#이름 총점 평균
