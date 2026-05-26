@@ -1,10 +1,11 @@
 class PersonInfo():
-    def __init__(self,*args):
-        self.args=args
+    def __init__(self,name,age,local):
+        self.name=name
+        self.age=age
+        self.local=local
         # print(self.args)
     def Display(self):
-        self.args=list(self.args)
-        print(f'이름 : {self.args[0]},나이 : {self.args[1]},지역 : {self.args[2]}')
+        print(f'이름 : {self.name},나이 : {self.age},지역 : {self.local}')
 
 per1=PersonInfo('Hong',30,"Seoul")
 per2=PersonInfo('Kim',50,'Daejeon')
