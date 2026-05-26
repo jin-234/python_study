@@ -11,4 +11,4 @@ com2=MyComInfo()
 com2.DisplayName()#Python Academy
 
 com2.SettingName("Agent Academy")
-com2.DisplayName()#Agent Academyac
+com2.DisplayName()#Agent Academy
