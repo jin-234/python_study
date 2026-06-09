@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 
 heart_df=pd.read_csv('/home/jin/deeplearning_prj/20260609/HeartDiseaseTrain-Test.csv')
 
+#데이터 전처리(문자열 데이터 정수형으로 변환)
 heart_df['sex']=heart_df['sex'].map({'Male':1,'Female':0})
 heart_df['chest_pain_type']=heart_df['chest_pain_type'].map({'Typical angina':1,'Atypical angina' :2,'Non-anginal pain':3, 'Asymptomatic':4})
 heart_df['fasting_blood_sugar']=heart_df['fasting_blood_sugar'].map({'Lower than 120 mg/ml':0,'Greater than 120 mg/ml':1})#'Lower than 120 mg/ml' 'Greater than 120 mg/ml
@@ -17,21 +18,34 @@ heart_df['vessels_colored_by_flourosopy']=heart_df['vessels_colored_by_flourosop
 heart_df['thalassemia']=heart_df['thalassemia'].map({'Reversable Defect':7, 'Fixed Defect':6, 'Normal' :3,'No':0})#['Reversable Defect' 'Fixed Defect' 'Normal' 'No']
 # heart_df.info()
 # print(heart_df['thalassemia'].unique())
+
+#데이터 벨류와 데이터 타켓으로 분할
 heart_target=heart_df['target'].values
 heart_df_data=heart_df[['age', 'sex', 'chest_pain_type', 'resting_blood_pressure','cholestoral', 'fasting_blood_sugar', 'rest_ecg', 'Max_heart_rate', 'exercise_induced_angina', 'oldpeak', 'slope','vessels_colored_by_flourosopy', 'thalassemia']]
 #print(heart_target)
 
+#훈련,테스트 데이터셋 분리
 train_x,test_x,train_y,test_y=train_test_split(heart_df_data,heart_target,random_state=35) 
 
+#특성 데이터 스케일 변환
 from sklearn.preprocessing import StandardScaler
 scaler=StandardScaler()
 train_scale=scaler.fit_transform(train_x)
 test_scale=scaler.transform(test_x)
 #print(train_scale)
-
+ 
+#모델 생성 
 lr_model=LogisticRegression()
+
+#모델 훈련
 lr_model.fit(train_scale,train_y)
+
+#모델 평가
 print(lr_model.score(train_scale,train_y))
 print(lr_model.score(test_scale,test_y))
 
+#모델 예측
 print(lr_model.predict(test_scale))
+
+#모델 훈련 계수
+print(lr_model.coef_,lr_model.intercept_)
