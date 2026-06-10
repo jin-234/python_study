@@ -1,0 +1,83 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+
+
+
+#농어길이데이터 ( 캐글Fish Market 데이터참조)
+
+perch_length=np.array([8.4,13.7,15.0,16.2,17.4,18.0,18.7,19.0,19.6,20.0,21.0,
+21.0,21.0,21.3,22.0,22.0,22.0,22.0,22.0,22.5,22.5,22.7,
+23.0,23.5,24.0,24.0,24.6,25.0,25.6,26.5,27.3,27.5,27.5,
+27.5,28.0,28.7,30.0,32.8,34.5,35.0,36.5,36.0,37.0,37.0,
+39.0,39.0,39.0,40.0,40.0,40.0,40.0,42.0,43.0,43.0,43.5,
+44.0])
+# 농어무게데이터 (캐글FishMarket 데이터참조)
+
+perch_weight=np.array([5.9,32.0,40.0,51.5,70.0,100.0,78.0,80.0,85.0,85.0,110.0,
+115.0,125.0,130.0,120.0,120.0,130.0,135.0,110.0,130.0,
+150.0,145.0,150.0,170.0,225.0,145.0,188.0,180.0,197.0,
+218.0,300.0,260.0,265.0,250.0,250.0,300.0,320.0,514.0,
+556.0,840.0,685.0,700.0,700.0,690.0,900.0,650.0,820.0,
+850.0,900.0,1015.0,820.0,1100.0,1000.0,1100.0,1000.0,
+1000.0])
+
+#농어 길이/농어 무게를 train/test 데이터로 분리
+train_x,test_x,train_y,test_y=train_test_split(perch_length,perch_weight,random_state=42)
+
+print(train_x.shape,train_y.shape)
+#1치원 ==>2차원으로 변경
+train_x=train_x.reshape(-1,1)
+test_x=test_x.reshape(-1,1)
+print(train_x.shape,train_y.shape)
+
+#길이 x에 제곱한 특성을 추가하자
+#x^2
+# print(train_x[:5])
+# print(train_x[:5]**2)
+train_poly=np.column_stack((train_x**2,train_x))
+print(train_poly[:5])
+print(train_poly.shape)
+
+test_poly=np.column_stack((test_x**2,test_x))
+print(test_poly.shape)
+
+#스케일링
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+train_scaled=scaler.fit_transform(train_poly)
+test_scaled=scaler.transform(test_poly)
+
+#모델 설계 딥러닝 선형회귀
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Sequential
+from tensorflow.keras import optimizers
+
+lr_model=Sequential()
+#입력측의 뉴런 개수는 4개
+
+#units=각층의 뉴런 개수
+lr_model.add(Dense(units=4,input_dim=2,activation='leaky_relu'))#입력데이터를 받는 첫번째 층(입력층)
+#다음 은닉층 뉴런 개수는 8개
+
+lr_model.add(Dense(units=8,activation='leaky_relu'))
+
+
+#출력층 뉴런 개수는 1게
+lr_model.add(Dense(units=1,activation='linear'))
+
+#모델 summary()
+lr_model.summary()
+
+#모델 comfile()
+lr_model.compile(loss='mse',optimizer='adam',metrics=['mae'])
+
+#모델 학습
+lr_model.fit(train_poly,train_y,batch_size=1,epochs=5,verbose=1)
+
+print(lr_model.evaluate(test_poly,test_y)[1])
+pred=lr_model.predict(train_poly)
+plt.scatter(train_x,train_y)
+plt.scatter(train_x,pred)
+plt.savefig('lr_model.jpeg')
+
