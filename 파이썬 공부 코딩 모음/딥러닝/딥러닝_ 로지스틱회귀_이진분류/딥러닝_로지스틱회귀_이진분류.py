@@ -97,7 +97,9 @@ logistic_model.add(Dense(units=1,activation='sigmoid'))
 logistic_model.compile(optimizer='adam',loss='binary_crossentropy',metrics=['accuracy'])
 logistic_model.fit(train_scaled,train_y,batch_size=16,epochs=500,verbose=1)
 print(logistic_model.evaluate(test_scaled,test_y)[1])
-# for i in range(10):
-#     print(f'예측:{logistic_model.predict(test_scaled)[i]}결과:{test_y[i]}')
+
+import joblib
+joblib.dump(scaler,'scaler.pkl')    
+
 
 logistic_model.save('titanic_bestmodel.keras')#모델 전체(네트워크 구조 및 가증치 )저장
