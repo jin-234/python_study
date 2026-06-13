@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-#파일 다운로드 위치 : https://www.kaggle.com/datasets/mohsinsherazds/forest-covertype
-
+#파일 다운로드 위치1(캐글) : https://www.kaggle.com/datasets/mohsinsherazds/forest-covertype
+#파일 다운로드 위치2(구글드라이브) : https://drive.google.com/file/d/1HfYvLoYLNzu49cn7saTGRii2XMkSsHhu/view?usp=drive_link
 forset_df=pd.read_csv('/home/jin/deeplearning_prj/20260613 개인복습/forest_cover_type.csv')
 # print(forset_df.columns)
 # forset_df.info()
