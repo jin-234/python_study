@@ -110,7 +110,8 @@ for epoch in range(epochs):
     #전체 손실값 계산
     total_loss=total_loss/len(train_dl)
     
-    print(f'Epochs:{epoch+1},Loss:{total_loss},Accuracy:{total_acc}')
+    print(f'Epochs:{epoch+1},Loss:{total_loss:.4f},Accuracy:{total_acc:.4f}')
+
     
 
 with torch.no_grad():
